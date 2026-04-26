@@ -161,15 +161,15 @@ async def search_products(
            "Kellogg's cornflakes", "dark chocolate 70%".
         page: Page number (starts at 1).
         page_size: Results per page, 1–50. Default 10.
-        sort_by: Sort field. "-unique_scans_n" = most popular first (default).
-                 "nutriments.sugars_100g" = least sugar first.
+        sort_by: Sort field. Omit to rank by search relevance (recommended).
+                 Use "-unique_scans_n" for most popular, "nutriments.sugars_100g" for least sugar first.
     """
     params: dict = {
         "q": q,
         "page": page,
         "page_size": page_size,
         "fields": _SEARCH_FIELDS,
-        "sort_by": sort_by or "-unique_scans_n",
+        **({"sort_by": sort_by} if sort_by else {}),
     }
 
     resp = await _client.get("/search", params=params)
