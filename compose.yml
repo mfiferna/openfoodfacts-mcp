@@ -1,0 +1,6 @@
+services:
+  openfoodfacts-mcp:
+    image: ghcr.io/mfiferna/openfoodfacts-mcp:latest
+    ports:
+      - "43821:8000"
+    restart: unless-stopped
