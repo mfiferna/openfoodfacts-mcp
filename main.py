@@ -114,8 +114,8 @@ def _fix_nutrient_level_keys(levels: dict) -> dict:
 
 def _scores(p: dict) -> dict:
     out: dict = {}
-    if g := p.get("nutriscore_grade"):
-        out["nutriscore"] = _NUTRISCORE.get(g.lower(), g.upper())
+    if (g := p.get("nutriscore_grade")) and g.lower() in _NUTRISCORE:
+        out["nutriscore"] = _NUTRISCORE[g.lower()]
     if n := p.get("nova_group"):
         out["nova"] = _NOVA.get(n, str(n))
     return out
